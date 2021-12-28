@@ -81,7 +81,7 @@ int algo5itr(const int base, char exp[], const unsigned int m, const unsigned in
     return x;
 }
 
-int algo5rec(const int base, char exp[], const int m, const int sizeOfExp)
+unsigned int algo5rec(const int base, char exp[], const int m, const int sizeOfExp)
 {
     /*base cases*/
     if (sizeOfExp <= 0)
@@ -90,7 +90,7 @@ int algo5rec(const int base, char exp[], const int m, const int sizeOfExp)
     {
         return base;
     }
-    int x = algo5rec(base,exp,m,sizeOfExp-1);
+    unsigned int x = algo5rec(base,exp,m,sizeOfExp-1);
     if(exp[sizeOfExp-1] == '0')
     {
         return (x*x) % m;
