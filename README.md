@@ -1,48 +1,55 @@
-# Discrete Mathematics For Computing | Project
-Implementing common algorithms in discrete maths with **C**.
+# Discrete Mathematics For Computing | Project  
+Implementing common algorithms in discrete maths with **C**.  
+  
+___  
+  
+>ID: 6655    
+>Name: Fatmea Moharam    
+  
+---  
+  
+## Data Structures   
 
-___
+All algorithms use dynamically allocated arrays when they need a list.  
+Only the     main     function is responsible for allocation and deallocation.  
+  
+___  
+  
+## Design assumptions  
 
->ID: 6655  
->Name: Fatmea Moharam  
-
----
-
-## Data Structures 
-All algorithms use dynamically allocated arrays when they need a list.
-Only the     main     function is responsible for allocation and deallocation.
-
-___
-
-## Design assumptions
- All numbers are non-negative integers.
-
-___
-
+All numbers are non-negative integers.  
+  
+___  
+  
 ## - Problem 1: Fast Exponentiation
 
 $base^{exp} \bmod m$
 
- using 2 naîve algorithms and *algorithm 5*
- ## sample runs:
+using 2 naîve algorithms and *algorithm 5*
  
- ---
+## sample runs:
  
- ![run1](/img/fastexp1.png)
+---
+ 
+![run1](/img/fastexp1.png)
 
- ---
+---
 
- ![run2](/img/fastexp2.png)
- As it is stated in the previous sample runs:
- Both naîve algorithms take extremely big amounts of time to finish, compared to both implementations of algorithm 5, which take less than a millisecond.
+![run2](/img/fastexp2.png)  
 
- ---
+--- 
 
- ### Overflows
+As it is stated in the previous sample runs:
+Both naîve algorithms take extremely big amounts of time to finish, compared to both implementations of algorithm 5, which take less than a millisecond.  
 
- Algorithm 5 breaks (overflows) when the number of bits representing the exponent gets large, for example:
- In the following sample run: the number of bits = 30
- ![break](/img/fastexpbreak2.png)
+---
+
+### Overflows
+
+Algorithm 5 breaks (overflows) when the number of bits representing the exponent gets large, for example:
+In the following sample run: the number of bits = 30
+
+![break](/img/fastexpbreak2.png)
 
 ---
 
@@ -59,19 +66,26 @@ fastExp(int base, int exp as (an-1,an-2,...,a0), int m)
         return x * x * a % m
         
 ```
+
 ___ 
 
 ## - problem 2:
 
- List all prime numbers before *n*  
- The Sieve Of Eratosthenes  
- ## Sample runs  
- ---  
- ![run2](/img/sieve2.png)
- ![run1pt1](/img/sieve1.png)
- ![run1pt2](/img/sieve1-2.png)
+List all prime numbers before *n*  
+The Sieve Of Eratosthenes  
+
+## Sample runs  
+
+---  
+
+![run2](/img/sieve2.png)  
+
+![run1pt1](/img/sieve1.png)  
+
+![run1pt2](/img/sieve1-2.png)  
  
- ## Pseudo code 
+## Pseudo code 
+
  ```     
  theSieve(int n ):  
     let   smallList   be a new array = {2,3,5,7}  
