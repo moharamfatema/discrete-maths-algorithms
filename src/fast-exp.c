@@ -22,28 +22,27 @@ float tock(time_t start)
 }
 unsigned int sizeOfBinStr(const unsigned int n)
 {
-    return (n)?ceil(log2(n+1)):1;
+    return (n) ? ceil(log2(n + 1)) : 1;
 }
-void uint2bin(unsigned int n, char * nstr)
+void uint2bin(unsigned int n, char *nstr)
 {
-    unsigned int size = ceil(log2(n+1));
+    unsigned int size = ceil(log2(n + 1));
 
-    for(int i = size-1; i >= 0; i--)
+    for (int i = size - 1; i >= 0; i--)
     {
-        if( n >= pow(2,i))
+        if (n >= pow(2, i))
         {
-            nstr[size - 1 -i] = '1';
-            n -= pow(2,i);
-        }else
+            nstr[size - 1 - i] = '1';
+            n -= pow(2, i);
+        }
+        else
         {
             nstr[size - 1 - i] = '0';
         }
     }
-    
+
     return;
 }
-
-
 
 /*fast exponentiation*/
 int naive1(int a, int b, int m)
@@ -67,7 +66,7 @@ int naive2(int a, int b, int m)
     return c;
 }
 
-int algo5(const int base, char exp[],const unsigned int m, const unsigned int sizeOfExp)
+int algo5itr(const int base, char exp[], const unsigned int m, const unsigned int sizeOfExp)
 {
     int x = 1;
     int pow = base % m;
@@ -82,6 +81,27 @@ int algo5(const int base, char exp[],const unsigned int m, const unsigned int si
     return x;
 }
 
+int algo5rec(const int base, char exp[], const int m, const int sizeOfExp)
+{
+    /*base cases*/
+    if (sizeOfExp <= 0)
+        return 1;
+    if (sizeOfExp == 1 && exp[sizeOfExp] == '1')
+    {
+        return base;
+    }
+    int x = algo5rec(base,exp,m,sizeOfExp-1);
+    if(exp[sizeOfExp-1] == '0')
+    {
+        return (x*x) % m;
+    }
+    else
+    {
+        return (x*x*base) % m;
+    }
+
+}
+
 /*Driver*/
 int main()
 {
@@ -91,46 +111,53 @@ int main()
 
     printf("Fast Exponentiation\n=====================================\n");
     printf("To calculate the expression: base^(exponent) mod m,\n");
-    
+
     /*input from stdin*/
     printf("Enter the base : ");
-    scanf("%d",&base);
+    scanf("%d", &base);
     printf("Enter the exponent : ");
-    scanf("%d",&exp);
+    scanf("%d", &exp);
     printf("Enter m : ");
-    scanf("%d",&m);
+    scanf("%d", &m);
 
     const unsigned int size = sizeOfBinStr(exp);
-    char * expStr = (char *)malloc(size * sizeof(char));
-    uint2bin(exp,expStr);
+    char *expStr = (char *)malloc(size * sizeof(char));
+    uint2bin(exp, expStr);
 
     printf("\nNaîve algorithm #1\n=====================================\n");
-    
+
     /*naive1*/
     start = tick();
-    ans = naive1(base,exp,m);
+    ans = naive1(base, exp, m);
     duration = tock(start);
 
-    printf("Answer = %d\nTime spent = %.3f milliseconds\n-------------------------------------\n",ans,duration);
+    printf("Answer = %d\nTime spent = %.3f milliseconds\n-------------------------------------\n", ans, duration);
 
     printf("\nNaîve algorithm #2\n=====================================\n");
-    
+
     /*naive2*/
     start = tick();
-    ans = naive2(base,exp,m);
+    ans = naive2(base, exp, m);
     duration = tock(start);
 
-    printf("Answer = %d\nTime spent = %.3f milliseconds\n-------------------------------------\n",ans,duration);
-    
-    printf("\nAlgorithm 5\n=====================================\n");
-    
+    printf("Answer = %d\nTime spent = %.3f milliseconds\n-------------------------------------\n", ans, duration);
+
+    printf("\nAlgorithm 5 iterative\n=====================================\n");
+
     /*Algorithm 5*/
     start = tick();
-    ans = algo5(base,expStr,m,size);
+    ans = algo5itr(base, expStr, m, size);
     duration = tock(start);
 
-    printf("Answer = %d\nTime spent = %.3f milliseconds\n-------------------------------------\n",ans,duration);
+    printf("Answer = %d\nTime spent = %.3f milliseconds\n-------------------------------------\n", ans, duration);
 
+    printf("\nAlgorithm 5 recursive\n=====================================\n");
 
+    /*Algorithm 5*/
+    start = tick();
+    ans = algo5rec(base, expStr, m, size);
+    duration = tock(start);
+
+    printf("Answer = %d\nTime spent = %.3f milliseconds\n-------------------------------------\n", ans, duration);
     free(expStr);
 }
